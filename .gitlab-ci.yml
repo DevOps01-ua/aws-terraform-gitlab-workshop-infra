@@ -1,0 +1,29 @@
+# terraform plan -> output
+# terraform apply --auto-approove  -plan-file=output
+# connect oidc
+
+include:
+  - local: 'templates/plan_and_apply.yml'
+
+stages:
+  - plan
+  - apply
+
+default:
+  image: alpine:3.20.3
+
+plan:
+  id_tokens:
+    GITLAB_OIDC_TOKEN:
+      aud: https://gitlab.com/devops01ua/
+  stage: plan
+  extends: .plan_template
+
+apply:
+  id_tokens:
+    GITLAB_OIDC_TOKEN:
+      aud: https://gitlab.com/devops01ua/
+  stage: apply
+  needs:
+    - plan
+  extends: .apply_template
