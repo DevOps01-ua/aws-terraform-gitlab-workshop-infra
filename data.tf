@@ -1,8 +1,7 @@
 data "aws_s3_bucket" "selected" {
-  bucket = "" #bucket_name
+  bucket = "cdk-hnb659fds-assets-730335176685-eu-central-1"
 }
 
-output "test" {
-  value = data.aws_s3_bucket.selected.arn
+data "aws_lambda_layer_version" "requests" {
+  layer_name = "requests-layer"
 }
-
